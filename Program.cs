@@ -63,16 +63,30 @@ using (var scope = app.Services.CreateScope())
     var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
 
     // اضافه کردن Admin
-    if (!db.Users.Any(u => u.Role == "Admin"))
+    if (!db.Users.Any(u => u.Username == "admin"))
     {
         db.Users.Add(new User
         {
             Username = "admin",
-            Password = "123456", // هش کردن پسورد یادت نره
+            Password = "123456",
             Role = "Admin"
         });
         db.SaveChanges();
     }
+
+    if (!db.Users.Any(u => u.Username == "Admin"))
+    {
+        db.Users.Add(new User
+        {
+            Username = "Admin",
+            Password = "123456",
+            Role = "Admin"
+        });
+        db.SaveChanges();
+    }
+
+    
+
 
     // ======= Seed ساده دیتابیس Devices =======
     if (!db.Devices.Any())

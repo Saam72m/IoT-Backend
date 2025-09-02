@@ -61,6 +61,7 @@ var app = builder.Build();
 using (var scope = app.Services.CreateScope())
 {
     var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+    db.Database.EnsureCreated(); // جدول‌ها رو میسازه اگر نبود
 
     // اضافه کردن Admin
     if (!db.Users.Any(u => u.Username == "admin"))
